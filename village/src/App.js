@@ -27,10 +27,27 @@ class App extends Component {
       });
   }
 
+  handleSubmit = e => {
+    const newSmurf = {
+      name: this.state.smurfs.name,
+      age: this.state.smurfs.age,
+      height: this.state.smurfs.height
+    };
+
+    axios
+      .post(`http://localhost:3333/smurfs`, newSmurf)
+      .then(res => {
+        this.setState(() => ({ smurfs: res.data }));
+      })
+      .catch(err => {
+        console.log('Something went wrong', err);
+      });
+  };
+
   render() {
     return (
       <div className="App">
-        <SmurfForm />
+        <SmurfForm handleSubmit={this.handleSubmit} />
         <Smurfs smurfs={this.state.smurfs} />
       </div>
     );
