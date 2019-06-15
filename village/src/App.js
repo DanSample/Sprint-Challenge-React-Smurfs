@@ -17,7 +17,14 @@ class App extends Component {
   // You'll need to make sure you have the right properties on state and pass them down to props.
 
   componentDidMount() {
-    axios.get('http://localhost:3333/smurfs');
+    axios
+      .get('http://localhost:3333/smurfs')
+      .then(res => {
+        this.setState(() => ({ smurfs: res.data }));
+      })
+      .catch(err => {
+        console.log('Server Error', err);
+      });
   }
 
   render() {
