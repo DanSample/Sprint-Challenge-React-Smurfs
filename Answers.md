@@ -1,6 +1,6 @@
 1.  Explain the differences between `client-side routing` and `server-side routing`.
 
-    
+    Server-side routing is where you make a call to a server to request a URL path, and the server finds the matching path and returns you the document requested. Client-side-routing is where you use JavaScript to internally(in your code) route the user to the requested URL change.
 
 1.  What does HTTP stand for?
 
