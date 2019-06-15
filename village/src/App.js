@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Route, Link, NavLink } from 'react-router-dom';
 
 import './App.css';
 import SmurfForm from './components/SmurfForm';
@@ -27,28 +28,42 @@ class App extends Component {
       });
   }
 
-  handleSubmit = e => {
-    const newSmurf = {
-      name: this.state.smurfs.name,
-      age: this.state.smurfs.age,
-      height: this.state.smurfs.height
-    };
-
-    axios
-      .post(`http://localhost:3333/smurfs`, newSmurf)
-      .then(res => {
-        this.setState(() => ({ smurfs: res.data }));
-      })
-      .catch(err => {
-        console.log('Something went wrong', err);
-      });
-  };
-
   render() {
     return (
       <div className="App">
-        <SmurfForm handleSubmit={this.handleSubmit} />
-        <Smurfs smurfs={this.state.smurfs} />
+        <div className="nav-bar">
+          <NavLink
+            to={`/`}
+            style={{
+              textDecoration: 'none',
+              color: 'black'
+            }}
+          >
+            <div className="home-link">
+              <h3>Home</h3>
+            </div>
+          </NavLink>
+          <NavLink
+            to={`/smurf-form`}
+            style={{
+              textDecoration: 'none',
+              color: 'black'
+            }}
+          >
+            <div className="smurf-form-link">
+              <h3>Add a Smurf!</h3>
+            </div>
+          </NavLink>
+        </div>
+        <Route
+          exact
+          path="/smurf-form"
+          render={props => <SmurfForm {...props} />}
+        />
+        <Route
+          path="/"
+          render={props => <Smurfs {...props} smurfs={this.state.smurfs} />}
+        />
       </div>
     );
   }
