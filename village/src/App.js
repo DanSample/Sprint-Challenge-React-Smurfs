@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Route, NavLink } from 'react-router-dom';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink
+} from 'reactstrap';
+import { Route } from 'react-router-dom';
 
 import './App.css';
 import SmurfForm from './components/SmurfForm';
@@ -10,9 +19,16 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      smurfs: []
+      smurfs: [],
+      collapsed: true
     };
   }
+
+  toggleNavbar = () => {
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
+  };
   // add any needed code to ensure that the smurfs collection exists on state and it has data coming from the server
   // Notice what your map function is looping over and returning inside of Smurfs.
   // You'll need to make sure you have the right properties on state and pass them down to props.
@@ -31,30 +47,22 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <nav className="nav-bar">
-          <NavLink
-            to={`/`}
-            style={{
-              textDecoration: 'none',
-              color: 'black'
-            }}
-          >
-            <div className="home-link">
-              <h3>Home</h3>
-            </div>
-          </NavLink>
-          <NavLink
-            to={`/smurf-form`}
-            style={{
-              textDecoration: 'none',
-              color: 'black'
-            }}
-          >
-            <div className="smurf-form-link">
-              <h3>Add a Smurf!</h3>
-            </div>
-          </NavLink>
-        </nav>
+        <Navbar color="faded" light>
+          <NavbarBrand href="/" className="mr-auto">
+            Smurf Village
+          </NavbarBrand>
+          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+          <Collapse isOpen={!this.state.collapsed} navbar>
+            <Nav navbar>
+              <NavItem>
+                <NavLink href="/">Home</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/smurf-form">Add a Villager</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
         <Route
           exact
           path="/smurf-form"

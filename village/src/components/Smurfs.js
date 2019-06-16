@@ -6,7 +6,9 @@ class Smurfs extends Component {
   render() {
     return (
       <div className="Smurfs">
-        <h1>Smurf Village</h1>
+        <div className="header-img">
+          <h1>Smurf Village</h1>
+        </div>
         <ul>
           {this.props.smurfs.map(smurf => {
             return (
